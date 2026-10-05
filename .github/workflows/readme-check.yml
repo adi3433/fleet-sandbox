@@ -1,0 +1,11 @@
+name: readme-check
+# Fleet e2e test 2.4 (2026-10-06): a check that fails until README.md has the line "CI fixed".
+# Removed again after the test.
+on: [pull_request]
+jobs:
+  readme:
+    name: "README.md must contain a line that says: CI fixed"
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: grep -q "CI fixed" README.md || { echo "::error::README.md must contain a line that says CI fixed"; exit 1; }
